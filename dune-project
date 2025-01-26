@@ -4,6 +4,8 @@
 
 (source (github liang-xc/us-fiscal-dataloader))
 
+(license GPL-3.0-or-later)
+
 (name us-fiscal-dataloader)
 
 (authors "LIANG Xiaocheng")

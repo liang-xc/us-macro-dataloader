@@ -4,6 +4,7 @@ synopsis: "US Fiscal Dataloaders"
 description: "US Fiscal Dataloaders"
 maintainer: ["LIANG Xiaocheng"]
 authors: ["LIANG Xiaocheng"]
+license: "GPL-3.0-or-later"
 homepage: "https://github.com/liang-xc/us-fiscal-dataloader"
 bug-reports: "https://github.com/liang-xc/us-fiscal-dataloader/issues"
 depends: [
