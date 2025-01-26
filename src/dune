@@ -1,0 +1,13 @@
+(executable
+ (public_name us-fiscal-dataloader)
+ (name main)
+ (libraries
+  core
+  async
+  yojson
+  uri
+  cohttp-async
+  caqti-async
+  caqti-driver-postgresql)
+ (preprocess
+  (pps ppx_jane)))
