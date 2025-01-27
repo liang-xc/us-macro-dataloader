@@ -2,7 +2,8 @@
 
 (generate_opam_files true)
 
-(source (github liang-xc/us-fiscal-dataloader))
+(source
+ (github liang-xc/us-fiscal-dataloader))
 
 (license GPL-3.0-or-later)
 
@@ -26,4 +27,5 @@
   cohttp-async
   caqti-async
   caqti-driver-postgresql
-  ppx-jane))
+  ppx_jane
+  ppx_yojson_conv))

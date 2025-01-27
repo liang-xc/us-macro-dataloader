@@ -1,9 +1,11 @@
 (** The Treasury Securities Auctions Data dataset provides data on announced and auctioned marketable Treasury securities.
-    API Docs can be found at: https://fiscaldata.treasury.gov/datasets/treasury-securities-auctions-data/treasury-securities-auctions-data *)
+    API Docs can be found at: https://fiscaldata.treasury.gov/datasets/treasury-securities-auctions-data/treasury-securities-auctions-data
+    Available data starts from 1979-11-15 *)
 
 open! Core
 open Async
 open Cohttp_async
+open Json_util
 
 type t =
   { record_date : string
@@ -120,324 +122,7 @@ type t =
   ; tint_cusip_1 : string option
   ; tint_cusip_2 : string option
   }
-
-let to_numlit_option j =
-  let open Yojson.Safe.Util in
-  match to_string_option j with
-  | None -> None
-  | Some s -> s |> Float.of_string_opt
-;;
-
-let parse_single_auction jdata =
-  let open Yojson.Safe.Util in
-  let record_date = jdata |> member "record_date" |> to_string in
-  let cusip = jdata |> member "cusip" |> to_string in
-  let security_type = jdata |> member "security_type" |> to_string in
-  let security_term = jdata |> member "security_term" |> to_string_option in
-  let auction_date = jdata |> member "auction_date" |> to_string in
-  let issue_date = jdata |> member "issue_date" |> to_string in
-  let maturity_date = jdata |> member "maturity_date" |> to_string in
-  let price_per100 = jdata |> member "price_per100" |> to_string_option in
-  let accrued_int_per100 = jdata |> member "accrued_int_per100" |> to_numlit_option in
-  let accrued_int_per1000 = jdata |> member "accrued_int_per1000" |> to_numlit_option in
-  let adj_accrued_int_per1000 =
-    jdata |> member "adj_accrued_int_per1000" |> to_numlit_option
-  in
-  let adj_price = jdata |> member "adj_price" |> to_numlit_option in
-  let allocation_pctage = jdata |> member "allocation_pctage" |> to_numlit_option in
-  let allocation_pctage_decimals =
-    jdata |> member "allocation_pctage_decimals" |> to_numlit_option
-  in
-  let announcemtd_cusip = jdata |> member "announcemtd_cusip" |> to_string_option in
-  let announcemt_date = jdata |> member "announcemtd_date" |> to_string_option in
-  let auction_format = jdata |> member "auction_format" |> to_string_option in
-  let avg_med_discnt_rate = jdata |> member "avg_med_discnt_rate" |> to_numlit_option in
-  let avg_med_investment_rate =
-    jdata |> member "avg_med_investment_rate" |> to_numlit_option
-  in
-  let avg_med_price = jdata |> member "avg_med_price" |> to_string_option in
-  let avg_med_discnt_margin =
-    jdata |> member "avg_med_discnt_margin" |> to_numlit_option
-  in
-  let avg_med_yield = jdata |> member "avg_med_yield" |> to_numlit_option in
-  let back_dated = jdata |> member "back_dated" |> to_string_option in
-  let back_dated_date = jdata |> member "back_dated_date" |> to_string_option in
-  let bid_to_cover_ratio = jdata |> member "bid_to_cover_ratio" |> to_numlit_option in
-  let callable = jdata |> member "callable" |> to_string_option in
-  let call_date = jdata |> member "call_date" |> to_string_option in
-  let called_date = jdata |> member "called_date" |> to_string_option in
-  let cash_management_bill_cmb =
-    jdata |> member "cash_management_bill_cmb" |> to_string_option
-  in
-  let closing_time_comp = jdata |> member "closing_time_comp" |> to_string_option in
-  let closing_time_noncomp = jdata |> member "closing_time_noncomp" |> to_string_option in
-  let comp_accepted = jdata |> member "comp_accepted" |> to_numlit_option in
-  let comp_bid_decimals = jdata |> member "comp_bid_decimals" |> to_numlit_option in
-  let comp_tendered = jdata |> member "comp_tendered" |> to_numlit_option in
-  let comp_tenders_accepted =
-    jdata |> member "comp_tenders_accepted" |> to_string_option
-  in
-  let corpus_cusip = jdata |> member "corpus_cusip" |> to_string_option in
-  let cpi_base_reference_period =
-    jdata |> member "cpi_base_reference_period" |> to_string_option
-  in
-  let currently_outstanding =
-    jdata |> member "currently_outstanding" |> to_numlit_option
-  in
-  let dated_date = jdata |> member "dated_date" |> to_string_option in
-  let direct_bidder_accepted =
-    jdata |> member "direct_bidder_accepted" |> to_numlit_option
-  in
-  let direct_bidder_tendered =
-    jdata |> member "direct_bidder_tendered" |> to_numlit_option
-  in
-  let est_pub_held_mat_by_type_amt =
-    jdata |> member "est_pub_held_mat_by_type_amt" |> to_numlit_option
-  in
-  let fima_included = jdata |> member "fima_included" |> to_string_option in
-  let fima_noncomp_accepted =
-    jdata |> member "fima_noncomp_accepted" |> to_numlit_option
-  in
-  let fima_noncomp_tendered =
-    jdata |> member "fima_noncomp_tendered" |> to_numlit_option
-  in
-  let first_int_period = jdata |> member "first_int_period" |> to_string_option in
-  let first_int_payment_date =
-    jdata |> member "first_int_payment_date" |> to_string_option
-  in
-  let floating_rate = jdata |> member "floating_rate" |> to_string_option in
-  let frn_index_determination_date =
-    jdata |> member "frn_index_determination_date" |> to_string_option
-  in
-  let frn_index_determination_rate =
-    jdata |> member "frn_index_determination_rate" |> to_numlit_option
-  in
-  let high_discnt_rate = jdata |> member "high_discnt_rate" |> to_numlit_option in
-  let high_investment_rate = jdata |> member "high_investment_rate" |> to_numlit_option in
-  let high_price = jdata |> member "high_price" |> to_string_option in
-  let high_discnt_margin = jdata |> member "high_discnt_margin" |> to_numlit_option in
-  let high_yield = jdata |> member "high_yield" |> to_numlit_option in
-  let index_ratio_on_issue_date =
-    jdata |> member "index_ratio_on_issue_date" |> to_numlit_option
-  in
-  let indirect_bidder_accepted =
-    jdata |> member "indirect_bidder_accepted" |> to_numlit_option
-  in
-  let indirect_bidder_tendered =
-    jdata |> member "indirect_bidder_tendered" |> to_numlit_option
-  in
-  let int_payment_frequency =
-    jdata |> member "int_payment_frequency" |> to_string_option
-  in
-  let int_rate = jdata |> member "int_rate" |> to_numlit_option in
-  let low_discnt_rate = jdata |> member "low_discnt_rate" |> to_numlit_option in
-  let low_investment_rate = jdata |> member "low_investment_rate" |> to_numlit_option in
-  let low_price = jdata |> member "low_price" |> to_string_option in
-  let low_discnt_margin = jdata |> member "low_discnt_margin" |> to_numlit_option in
-  let low_yield = jdata |> member "low_yield" |> to_numlit_option in
-  let mat_date = jdata |> member "mat_date" |> to_string_option in
-  let max_comp_award = jdata |> member "max_comp_award" |> to_numlit_option in
-  let max_noncomp_award = jdata |> member "max_noncomp_award" |> to_numlit_option in
-  let max_single_bid = jdata |> member "max_single_bid" |> to_numlit_option in
-  let min_bid_amt = jdata |> member "min_bid_amt" |> to_numlit_option in
-  let min_strip_amt = jdata |> member "min_strip_amt" |> to_numlit_option in
-  let min_to_issue = jdata |> member "min_to_issue" |> to_numlit_option in
-  let multiples_to_bid = jdata |> member "multiples_to_bid" |> to_numlit_option in
-  let multiples_to_issue = jdata |> member "multiples_to_issue" |> to_numlit_option in
-  let nlp_exclusion_amt = jdata |> member "nlp_exclusion_amt" |> to_numlit_option in
-  let nlp_reporting_threshold =
-    jdata |> member "nlp_reporting_threshold" |> to_numlit_option
-  in
-  let noncomp_accepted = jdata |> member "noncomp_accepted" |> to_numlit_option in
-  let noncomp_tenders_accepted =
-    jdata |> member "noncomp_tenders_accepted" |> to_string_option
-  in
-  let offering_amt = jdata |> member "offering_amt" |> to_numlit_option in
-  let original_cusip = jdata |> member "original_cusip" |> to_string_option in
-  let original_dated_date = jdata |> member "original_dated_date" |> to_string_option in
-  let original_issue_date = jdata |> member "original_issue_date" |> to_string_option in
-  let original_security_term =
-    jdata |> member "original_security_term" |> to_string_option
-  in
-  let pdf_filenm_announcemt =
-    jdata |> member "pdf_filenm_announcemt" |> to_string_option
-  in
-  let pdf_filenm_comp_results =
-    jdata |> member "pdf_filenm_comp_results" |> to_string_option
-  in
-  let pdf_filenm_noncomp_results =
-    jdata |> member "pdf_filenm_noncomp_results" |> to_string_option
-  in
-  let primary_dealer_accepted =
-    jdata |> member "primary_dealer_accepted" |> to_numlit_option
-  in
-  let primary_dealer_tendered =
-    jdata |> member "primary_dealer_tendered" |> to_numlit_option
-  in
-  let ref_cpi_on_dated_date =
-    jdata |> member "ref_cpi_on_dated_date" |> to_numlit_option
-  in
-  let ref_cpi_on_issue_date =
-    jdata |> member "ref_cpi_on_issue_date" |> to_numlit_option
-  in
-  let reopening = jdata |> member "reopening" |> to_string_option in
-  let security_term_day_month =
-    jdata |> member "security_term_day_month" |> to_string_option
-  in
-  let security_term_week_year =
-    jdata |> member "security_term_week_year" |> to_string_option
-  in
-  let series = jdata |> member "series" |> to_string_option in
-  let soma_accepted = jdata |> member "soma_accepted" |> to_numlit_option in
-  let soma_holdings = jdata |> member "soma_holdings" |> to_numlit_option in
-  let soma_included = jdata |> member "soma_included" |> to_string_option in
-  let soma_tendered = jdata |> member "soma_tendered" |> to_numlit_option in
-  let spread = jdata |> member "spread" |> to_numlit_option in
-  let std_int_payment_per1000 =
-    jdata |> member "std_int_payment_per1000" |> to_numlit_option
-  in
-  let strippable = jdata |> member "strippable" |> to_string_option in
-  let tiin_conversion_factor_per1000 =
-    jdata |> member "tiin_conversion_factor_per1000" |> to_numlit_option
-  in
-  let total_accepted = jdata |> member "total_accepted" |> to_numlit_option in
-  let total_tendered = jdata |> member "total_tendered" |> to_numlit_option in
-  let treas_retail_accepted =
-    jdata |> member "treas_retail_accepted" |> to_numlit_option
-  in
-  let treas_retail_tenders_accepted =
-    jdata |> member "treas_retail_tenders_accepted" |> to_string_option
-  in
-  let unadj_accrued_int_per1000 =
-    jdata |> member "unadj_accrued_int_per1000" |> to_numlit_option
-  in
-  let unadj_price = jdata |> member "unadj_price" |> to_numlit_option in
-  let xml_filenm_announcemt =
-    jdata |> member "xml_filenm_announcemt" |> to_string_option
-  in
-  let xml_filenm_comp_results =
-    jdata |> member "xml_filenm_comp_results" |> to_string_option
-  in
-  let inflation_index_security =
-    jdata |> member "inflation_index_security" |> to_string_option
-  in
-  let tint_cusip_1 = jdata |> member "tint_cusip_1" |> to_string_option in
-  let tint_cusip_2 = jdata |> member "tint_cusip_2" |> to_string_option in
-  { record_date
-  ; cusip
-  ; security_type
-  ; security_term
-  ; auction_date
-  ; issue_date
-  ; maturity_date
-  ; price_per100
-  ; accrued_int_per100
-  ; accrued_int_per1000
-  ; adj_accrued_int_per1000
-  ; adj_price
-  ; allocation_pctage
-  ; allocation_pctage_decimals
-  ; announcemtd_cusip
-  ; announcemt_date
-  ; auction_format
-  ; avg_med_discnt_rate
-  ; avg_med_investment_rate
-  ; avg_med_price
-  ; avg_med_discnt_margin
-  ; avg_med_yield
-  ; back_dated
-  ; back_dated_date
-  ; bid_to_cover_ratio
-  ; callable
-  ; call_date
-  ; called_date
-  ; cash_management_bill_cmb
-  ; closing_time_comp
-  ; closing_time_noncomp
-  ; comp_accepted
-  ; comp_bid_decimals
-  ; comp_tendered
-  ; comp_tenders_accepted
-  ; corpus_cusip
-  ; cpi_base_reference_period
-  ; currently_outstanding
-  ; dated_date
-  ; direct_bidder_accepted
-  ; direct_bidder_tendered
-  ; est_pub_held_mat_by_type_amt
-  ; fima_included
-  ; fima_noncomp_accepted
-  ; fima_noncomp_tendered
-  ; first_int_period
-  ; first_int_payment_date
-  ; floating_rate
-  ; frn_index_determination_date
-  ; frn_index_determination_rate
-  ; high_discnt_rate
-  ; high_investment_rate
-  ; high_price
-  ; high_discnt_margin
-  ; high_yield
-  ; index_ratio_on_issue_date
-  ; indirect_bidder_accepted
-  ; indirect_bidder_tendered
-  ; int_payment_frequency
-  ; int_rate
-  ; low_discnt_rate
-  ; low_investment_rate
-  ; low_price
-  ; low_discnt_margin
-  ; low_yield
-  ; mat_date
-  ; max_comp_award
-  ; max_noncomp_award
-  ; max_single_bid
-  ; min_bid_amt
-  ; min_strip_amt
-  ; min_to_issue
-  ; multiples_to_bid
-  ; multiples_to_issue
-  ; nlp_exclusion_amt
-  ; nlp_reporting_threshold
-  ; noncomp_accepted
-  ; noncomp_tenders_accepted
-  ; offering_amt
-  ; original_cusip
-  ; original_dated_date
-  ; original_issue_date
-  ; original_security_term
-  ; pdf_filenm_announcemt
-  ; pdf_filenm_comp_results
-  ; pdf_filenm_noncomp_results
-  ; primary_dealer_accepted
-  ; primary_dealer_tendered
-  ; ref_cpi_on_dated_date
-  ; ref_cpi_on_issue_date
-  ; reopening
-  ; security_term_day_month
-  ; security_term_week_year
-  ; series
-  ; soma_accepted
-  ; soma_holdings
-  ; soma_included
-  ; soma_tendered
-  ; spread
-  ; std_int_payment_per1000
-  ; strippable
-  ; tiin_conversion_factor_per1000
-  ; total_accepted
-  ; total_tendered
-  ; treas_retail_accepted
-  ; treas_retail_tenders_accepted
-  ; unadj_accrued_int_per1000
-  ; unadj_price
-  ; xml_filenm_announcemt
-  ; xml_filenm_comp_results
-  ; inflation_index_security
-  ; tint_cusip_1
-  ; tint_cusip_2
-  }
-;;
+[@@deriving yojson]
 
 let fetch_hist start_date =
   let rec aux page_num lst =
@@ -458,7 +143,7 @@ let fetch_hist start_date =
     let open Yojson.Safe.Util in
     let total_pages = j |> member "meta" |> member "total-pages" |> to_int in
     let data = j |> member "data" |> to_list in
-    let auctions = List.map data ~f:parse_single_auction in
+    let auctions = List.map data ~f:t_of_yojson in
     if page_num < total_pages
     then aux (page_num + 1) (lst @ auctions)
     else return (lst @ auctions)
@@ -948,7 +633,7 @@ module Q = struct
     |}
   ;;
 
-  let max_hist_date = (unit ->? string) @@ "SELECT MAX(record_date) FROM auction_hist"
+  let max_hist_date = (unit ->! string) @@ "SELECT MAX(record_date) FROM auction_hist"
 end
 
 let create_auction_hist_tbl (module Db : Caqti_async.CONNECTION) =
@@ -959,25 +644,28 @@ let insert_auction_hist (module Db : Caqti_async.CONNECTION) hist =
   Db.exec Q.insert_auction_hist hist
 ;;
 
-let get_max_hist_date (module Db : Caqti_async.CONNECTION) =
-  Db.find_opt Q.max_hist_date ()
-;;
+let get_max_hist_date (module Db : Caqti_async.CONNECTION) = Db.find Q.max_hist_date ()
 
 let run_auction_hist_exn () =
   let run_auction_hist =
     let%bind conn = Db_util.connect_exn () in
-    let%bind date =
-      match%map get_max_hist_date conn with
-      | Ok d_opt ->
-        (match d_opt with
-         | Some d -> Date.of_string d
-         | None -> Date.of_string "1979-01-01")
-      | Error err -> Db_util.failwith_err err
-    in
-    let () = Log.Global.info "Last update date is %s" (Date.to_string date) in
-    let%bind hist = fetch_hist date in
-    let () = Log.Global.info "fetched %d new auction records" (List.length hist) in
     Deferred.Result.bind (create_auction_hist_tbl conn) ~f:(fun () ->
+      let%bind date =
+        match%map get_max_hist_date conn with
+        | Ok d ->
+          (match d with
+           | "" ->
+             let () =
+               Log.Global.info "no record date available, using starting date 1979-11-01"
+             in
+             Date.of_string "1979-011-01"
+           | _ ->
+             let () = Log.Global.info "Last update date is %s" d in
+             Date.of_string d)
+        | Error err -> Db_util.failwith_err err
+      in
+      let%bind hist = fetch_hist date in
+      let () = Log.Global.info "fetched %d new auction records" (List.length hist) in
       Deferred.Result.List.iter hist ~f:(fun record -> insert_auction_hist conn record))
   in
   match%map run_auction_hist with

@@ -17,7 +17,8 @@ depends: [
   "cohttp-async"
   "caqti-async"
   "caqti-driver-postgresql"
-  "ppx-jane"
+  "ppx_jane"
+  "ppx_yojson_conv"
   "odoc" {with-doc}
 ]
 build: [
