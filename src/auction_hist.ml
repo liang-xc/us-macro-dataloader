@@ -658,7 +658,7 @@ let run_auction_hist_exn () =
              let () =
                Log.Global.info "no record date available, using starting date 1979-11-01"
              in
-             Date.of_string "1979-011-01"
+             Date.of_string "1979-11-01"
            | _ ->
              let () = Log.Global.info "Last update date is %s" d in
              Date.of_string d)
