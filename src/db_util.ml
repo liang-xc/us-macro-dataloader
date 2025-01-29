@@ -44,3 +44,15 @@ let failwith_err err =
   let msg = Printf.sprintf "Database Error: (err=%s)\n" (Caqti_error.show err) in
   failwith msg
 ;;
+
+(** this is a placehodler for Deferred.Result.List.iter before Async v0.18.0 *)
+let deferred_result_list_iter list ~f =
+  let open Deferred.Result.Let_syntax in
+  let rec loop acc = function
+    | [] -> return acc
+    | hd :: tl ->
+      let%bind acc = f acc hd in
+      loop acc tl
+  in
+  loop () list
+;;

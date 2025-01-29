@@ -666,7 +666,10 @@ let run_auction_hist_exn () =
       in
       let%bind hist = fetch_hist date in
       let () = Log.Global.info "fetched %d new auction records" (List.length hist) in
-      Deferred.Result.List.iter hist ~f:(fun record -> insert_auction_hist conn record))
+      (* use the following after Async v0.18.0 *)
+      (* Deferred.Result.List.iter hist ~f:(fun record -> insert_auction_hist conn record)) *)
+      Db_util.deferred_result_list_iter hist ~f:(fun () record ->
+        insert_auction_hist conn record))
   in
   match%map run_auction_hist with
   | Ok () -> Log.Global.info "Successfully update auction historical data"
