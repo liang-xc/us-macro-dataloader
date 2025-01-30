@@ -18,5 +18,3 @@ let command =
     ~summary:"US Fiscal data loaders"
     [ "auction-hist", update_auction_hist; "auction-upcoming", update_auction_upcoming ]
 ;;
-
-let () = Command_unix.run command

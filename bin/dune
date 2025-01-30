@@ -1,0 +1,4 @@
+(executable
+ (public_name us-fiscal-dataloader)
+ (name main)
+ (libraries dataloader))

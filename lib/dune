@@ -1,6 +1,5 @@
-(executable
- (public_name us-fiscal-dataloader)
- (name main)
+(library
+ (name dataloader)
  (libraries
   core
   async
