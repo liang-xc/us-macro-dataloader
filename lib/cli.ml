@@ -15,6 +15,6 @@ let update_auction_upcoming =
 
 let command =
   Command.group
-    ~summary:"US Fiscal data loaders"
+    ~summary:"US Macro data loaders"
     [ "auction-hist", update_auction_hist; "auction-upcoming", update_auction_upcoming ]
 ;;
