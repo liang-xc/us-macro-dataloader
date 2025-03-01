@@ -1,12 +1,12 @@
-# US Fiscal Dataloader
+# US Macro Dataloader
 
-A command-line tool designed to simplify the process of downloading US fiscal data and seamlessly uploading it to a PostgreSQL database.
+A command-line tool designed to simplify the process of collecting US macroeconomic and fiscal data and uploading it to a PostgreSQL database.
 
 ## Usage
 ```
-US Fiscal data loaders
+US Macro data loaders
 
-  us-fiscal-dataloader SUBCOMMAND
+  us-macro-dataloader SUBCOMMAND
 
 === subcommands ===
 

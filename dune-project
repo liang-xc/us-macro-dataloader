@@ -3,20 +3,20 @@
 (generate_opam_files true)
 
 (source
- (github liang-xc/us-fiscal-dataloader))
+ (github liang-xc/us-macro-dataloader))
 
 (license GPL-3.0-or-later)
 
-(name us-fiscal-dataloader)
+(name us-macro-dataloader)
 
 (authors "LIANG Xiaocheng")
 
 (maintainers "LIANG Xiaocheng")
 
 (package
- (name us-fiscal-dataloader)
- (synopsis "US Fiscal Dataloaders")
- (description "US Fiscal Dataloaders")
+ (name us-macro-dataloader)
+ (synopsis "US Macro Dataloaders")
+ (description "US Macro Dataloaders")
  (depends
   ocaml
   dune
