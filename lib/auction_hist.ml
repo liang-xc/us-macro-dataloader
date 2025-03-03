@@ -132,7 +132,7 @@ let fetch_hist start_date =
            "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query")
         [ "format", "json"
         ; "sort", "-record_date"
-        ; "filter", "record_date:gt:" ^ Date.to_string start_date
+        ; "filter", "record_date:gte:" ^ Date.to_string start_date
         ; "page[number]", Int.to_string page_num
         ]
     in
@@ -157,119 +157,119 @@ module Q = struct
 
   let auction =
     let intro
-      record_date
-      cusip
-      security_type
-      security_term
-      auction_date
-      issue_date
-      maturity_date
-      price_per100
-      accrued_int_per100
-      accrued_int_per1000
-      adj_accrued_int_per1000
-      adj_price
-      allocation_pctage
-      allocation_pctage_decimals
-      announcemtd_cusip
-      announcemt_date
-      auction_format
-      avg_med_discnt_rate
-      avg_med_investment_rate
-      avg_med_price
-      avg_med_discnt_margin
-      avg_med_yield
-      back_dated
-      back_dated_date
-      bid_to_cover_ratio
-      callable
-      call_date
-      called_date
-      cash_management_bill_cmb
-      closing_time_comp
-      closing_time_noncomp
-      comp_accepted
-      comp_bid_decimals
-      comp_tendered
-      comp_tenders_accepted
-      corpus_cusip
-      cpi_base_reference_period
-      currently_outstanding
-      dated_date
-      direct_bidder_accepted
-      direct_bidder_tendered
-      est_pub_held_mat_by_type_amt
-      fima_included
-      fima_noncomp_accepted
-      fima_noncomp_tendered
-      first_int_period
-      first_int_payment_date
-      floating_rate
-      frn_index_determination_date
-      frn_index_determination_rate
-      high_discnt_rate
-      high_investment_rate
-      high_price
-      high_discnt_margin
-      high_yield
-      index_ratio_on_issue_date
-      indirect_bidder_accepted
-      indirect_bidder_tendered
-      int_payment_frequency
-      int_rate
-      low_discnt_rate
-      low_investment_rate
-      low_price
-      low_discnt_margin
-      low_yield
-      mat_date
-      max_comp_award
-      max_noncomp_award
-      max_single_bid
-      min_bid_amt
-      min_strip_amt
-      min_to_issue
-      multiples_to_bid
-      multiples_to_issue
-      nlp_exclusion_amt
-      nlp_reporting_threshold
-      noncomp_accepted
-      noncomp_tenders_accepted
-      offering_amt
-      original_cusip
-      original_dated_date
-      original_issue_date
-      original_security_term
-      pdf_filenm_announcemt
-      pdf_filenm_comp_results
-      pdf_filenm_noncomp_results
-      primary_dealer_accepted
-      primary_dealer_tendered
-      ref_cpi_on_dated_date
-      ref_cpi_on_issue_date
-      reopening
-      security_term_day_month
-      security_term_week_year
-      series
-      soma_accepted
-      soma_holdings
-      soma_included
-      soma_tendered
-      spread
-      std_int_payment_per1000
-      strippable
-      tiin_conversion_factor_per1000
-      total_accepted
-      total_tendered
-      treas_retail_accepted
-      treas_retail_tenders_accepted
-      unadj_accrued_int_per1000
-      unadj_price
-      xml_filenm_announcemt
-      xml_filenm_comp_results
-      inflation_index_security
-      tint_cusip_1
-      tint_cusip_2
+          record_date
+          cusip
+          security_type
+          security_term
+          auction_date
+          issue_date
+          maturity_date
+          price_per100
+          accrued_int_per100
+          accrued_int_per1000
+          adj_accrued_int_per1000
+          adj_price
+          allocation_pctage
+          allocation_pctage_decimals
+          announcemtd_cusip
+          announcemt_date
+          auction_format
+          avg_med_discnt_rate
+          avg_med_investment_rate
+          avg_med_price
+          avg_med_discnt_margin
+          avg_med_yield
+          back_dated
+          back_dated_date
+          bid_to_cover_ratio
+          callable
+          call_date
+          called_date
+          cash_management_bill_cmb
+          closing_time_comp
+          closing_time_noncomp
+          comp_accepted
+          comp_bid_decimals
+          comp_tendered
+          comp_tenders_accepted
+          corpus_cusip
+          cpi_base_reference_period
+          currently_outstanding
+          dated_date
+          direct_bidder_accepted
+          direct_bidder_tendered
+          est_pub_held_mat_by_type_amt
+          fima_included
+          fima_noncomp_accepted
+          fima_noncomp_tendered
+          first_int_period
+          first_int_payment_date
+          floating_rate
+          frn_index_determination_date
+          frn_index_determination_rate
+          high_discnt_rate
+          high_investment_rate
+          high_price
+          high_discnt_margin
+          high_yield
+          index_ratio_on_issue_date
+          indirect_bidder_accepted
+          indirect_bidder_tendered
+          int_payment_frequency
+          int_rate
+          low_discnt_rate
+          low_investment_rate
+          low_price
+          low_discnt_margin
+          low_yield
+          mat_date
+          max_comp_award
+          max_noncomp_award
+          max_single_bid
+          min_bid_amt
+          min_strip_amt
+          min_to_issue
+          multiples_to_bid
+          multiples_to_issue
+          nlp_exclusion_amt
+          nlp_reporting_threshold
+          noncomp_accepted
+          noncomp_tenders_accepted
+          offering_amt
+          original_cusip
+          original_dated_date
+          original_issue_date
+          original_security_term
+          pdf_filenm_announcemt
+          pdf_filenm_comp_results
+          pdf_filenm_noncomp_results
+          primary_dealer_accepted
+          primary_dealer_tendered
+          ref_cpi_on_dated_date
+          ref_cpi_on_issue_date
+          reopening
+          security_term_day_month
+          security_term_week_year
+          series
+          soma_accepted
+          soma_holdings
+          soma_included
+          soma_tendered
+          spread
+          std_int_payment_per1000
+          strippable
+          tiin_conversion_factor_per1000
+          total_accepted
+          total_tendered
+          treas_retail_accepted
+          treas_retail_tenders_accepted
+          unadj_accrued_int_per1000
+          unadj_price
+          xml_filenm_announcemt
+          xml_filenm_comp_results
+          inflation_index_security
+          tint_cusip_1
+          tint_cusip_2
       =
       { record_date
       ; cusip
@@ -744,7 +744,11 @@ module Q = struct
     |}
   ;;
 
-  let max_hist_date = (unit ->! string) @@ "SELECT MAX(record_date) FROM auction_hist"
+  let max_hist_date =
+    (unit ->! string)
+    @@ {| SELECT MIN(record_date) FROM auction_hist
+          WHERE announcemtd_cusip is null AND price_per100 is null AND closing_time_comp is not null |}
+  ;;
 end
 
 let create_auction_hist_tbl (module Db : Caqti_async.CONNECTION) =
