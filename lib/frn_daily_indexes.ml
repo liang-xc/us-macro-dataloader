@@ -1,11 +1,3 @@
-(*
-   The FRN Daily Indexes dataset provides data on Floating Rate Notes.
-  For floating rate notes, the index is the highest accepted discount rate on 13-week bills determined by Treasury auctions of those securities.
-  We auction the 13-week Treasury bill every week, so the index rate of an FRN is reset every week. The FRN Daily Indexes provide information for specific CUSIPs, accrual periods, daily indexes, daily interest accrual rates, spread, and interest payment periods.
-  API Docs can be found at: https://fiscaldata.treasury.gov/datasets/frn-daily-indexes/frn-daily-indexes
-  Available data starts from 2023-09-28
-*)
-
 open! Core
 open Async
 open Cohttp_async
