@@ -1,7 +1,3 @@
-(** The Treasury Securities Auctions Data dataset provides data on announced and auctioned marketable Treasury securities.
-    API Docs can be found at: https://fiscaldata.treasury.gov/datasets/treasury-securities-auctions-data/treasury-securities-auctions-data
-    Available data starts from 1979-11-15 *)
-
 open! Core
 open Async
 open Cohttp_async

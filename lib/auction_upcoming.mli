@@ -1,3 +1,9 @@
+(** The Treasury Securities Upcoming Auctions Data dataset provides information on auction announcements.
+    Each announcement includes what securities are being auctioned, the announcement date, the auction date and issue date.
+    This data provides a notification of what Treasury Marketable securities will be announced and or auctioned in the upcoming week.
+    API Docs can be found at: https://fiscaldata.treasury.gov/datasets/upcoming-auctions/treasury-securities-upcoming-auctions
+    Available data starts from 2024-03-08 *)
+
 open! Core
 open Async
 
