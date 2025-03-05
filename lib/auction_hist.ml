@@ -742,8 +742,16 @@ module Q = struct
 
   let max_hist_date =
     (unit ->! string)
-    @@ {| SELECT MIN(record_date) FROM auction_hist
-          WHERE announcemtd_cusip is null AND price_per100 is null AND closing_time_comp is not null |}
+    @@ {|
+        SELECT min(record_date)
+        FROM auction_hist ah1
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM auction_hist ah2
+            WHERE ah1.cusip = ah2.announcemtd_cusip
+        )
+        AND ah1.price_per100 is null AND ah1.closing_time_comp is not null;
+    |}
   ;;
 end
 
