@@ -2,7 +2,14 @@
 
 A command-line tool designed to simplify the process of collecting US macroeconomic and fiscal data and uploading it to a PostgreSQL database.
 
+## Environment Variables
+
+```bash
+POSTGRES_URL="postgresql://"
+```
+
 ## Usage
+
 ```
 US Macro data loaders
 
