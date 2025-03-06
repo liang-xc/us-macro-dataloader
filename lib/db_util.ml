@@ -1,27 +1,7 @@
 open! Core
 open Async
 
-let get_uri () =
-  let open Option.Let_syntax in
-  let env_vars =
-    let%bind pg_host = Sys.getenv "PGHOST" in
-    let%bind pg_port = Sys.getenv "PGPORT" in
-    let%bind pg_database = Sys.getenv "PGDATABASE" in
-    let%bind pg_username = Sys.getenv "PGUSERNAME" in
-    let%bind pg_password = Sys.getenv "PGPASSWORD" in
-    Some (pg_host, pg_port, pg_database, pg_username, pg_password)
-  in
-  match env_vars with
-  | Some (pg_host, pg_port, pg_database, pg_username, pg_password) ->
-    Printf.sprintf
-      "postgresql://%s:%s@%s:%s/%s"
-      pg_username
-      pg_password
-      pg_host
-      pg_port
-      pg_database
-  | None -> "postgresql://postgres:password@localhost:5432/postgres"
-;;
+let get_uri () = Sys.getenv_exn "POSTGRES_URL"
 
 let connect () =
   let uri = get_uri () in
