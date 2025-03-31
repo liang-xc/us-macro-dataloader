@@ -127,8 +127,8 @@ let fetch_hist start_date =
         (Uri.of_string
            "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query")
         [ "format", "json"
-        ; "sort", "-record_date"
-        ; "filter", "record_date:gte:" ^ Date.to_string start_date
+        ; "sort", "-auction_date"
+        ; "filter", "auction_date:gte:" ^ Date.to_string start_date
         ; "page[number]", Int.to_string page_num
         ]
     in
@@ -743,14 +743,9 @@ module Q = struct
   let max_hist_date =
     (unit ->! string)
     @@ {|
-        SELECT min(record_date)
+        SELECT max(auction_date)
         FROM auction_hist ah1
-        WHERE NOT EXISTS (
-            SELECT 1
-            FROM auction_hist ah2
-            WHERE ah1.cusip = ah2.announcemtd_cusip
-        )
-        AND ah1.price_per100 is null AND ah1.closing_time_comp is not null;
+        WHERE ah1.price_per100 is not null;
     |}
   ;;
 end
